@@ -5,6 +5,6 @@
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public List<Ability> Effects { get; set; } = new List<Ability>();
+        public List<Ability> Abilities { get; set; } = new List<Ability>();
     }
 }
