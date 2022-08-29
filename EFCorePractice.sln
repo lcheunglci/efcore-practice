@@ -3,11 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaijuApp.Domain", "KaijuApp.Domain\KaijuApp.Domain.csproj", "{E9751BB9-2544-4601-926B-FE01CDA60E95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KaijuApp.Domain", "KaijuApp.Domain\KaijuApp.Domain.csproj", "{E9751BB9-2544-4601-926B-FE01CDA60E95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaijuApp.Data", "KaijuApp.Data\KaijuApp.Data.csproj", "{B09A89A0-D3BD-4824-AE71-CF201F7A375B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KaijuApp.Data", "KaijuApp.Data\KaijuApp.Data.csproj", "{B09A89A0-D3BD-4824-AE71-CF201F7A375B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaijuApp.UI", "KaijuApp.UI\KaijuApp.UI.csproj", "{249F94C2-663D-43A7-8346-905CD8B44B32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KaijuApp.UI", "KaijuApp.UI\KaijuApp.UI.csproj", "{249F94C2-663D-43A7-8346-905CD8B44B32}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KaijuApp", "KaijuApp", "{F283B35D-82AE-400D-8B3B-5C6ED882E827}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CourseManager", "CourseManager", "{5173B5FB-0E96-4DDD-95C1-8D049623C49F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseManager.API", "CourseManager.API\CourseManager.API.csproj", "{7FFBD428-B8DE-4BD0-83A7-7DDAB542933C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +33,19 @@ Global
 		{249F94C2-663D-43A7-8346-905CD8B44B32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{249F94C2-663D-43A7-8346-905CD8B44B32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{249F94C2-663D-43A7-8346-905CD8B44B32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FFBD428-B8DE-4BD0-83A7-7DDAB542933C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FFBD428-B8DE-4BD0-83A7-7DDAB542933C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FFBD428-B8DE-4BD0-83A7-7DDAB542933C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FFBD428-B8DE-4BD0-83A7-7DDAB542933C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E9751BB9-2544-4601-926B-FE01CDA60E95} = {F283B35D-82AE-400D-8B3B-5C6ED882E827}
+		{B09A89A0-D3BD-4824-AE71-CF201F7A375B} = {F283B35D-82AE-400D-8B3B-5C6ED882E827}
+		{249F94C2-663D-43A7-8346-905CD8B44B32} = {F283B35D-82AE-400D-8B3B-5C6ED882E827}
+		{7FFBD428-B8DE-4BD0-83A7-7DDAB542933C} = {5173B5FB-0E96-4DDD-95C1-8D049623C49F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {821234E5-11AE-4516-9572-085CC8EC9E88}
