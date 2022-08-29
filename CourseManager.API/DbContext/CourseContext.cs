@@ -13,5 +13,20 @@ namespace CourseManager.API.DbContexts
 
         public CourseContext()
         { }
+
+        public CourseContext(DbContextOptions<CourseContext> options)
+            : base(options)
+        {
+
+        }
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder
+        //            .UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=CourseManagerDB;Trusted_Connection=True;");
+        //    }
+        //}
     }
 }

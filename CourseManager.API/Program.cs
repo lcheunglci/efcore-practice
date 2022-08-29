@@ -14,6 +14,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<AuthorRepository>();
 
+builder.Services.AddDbContext<CourseContext>(
+    options =>
+    {
+        // options.UseInMemoryDatabase("CourseManagerInMemoryDB");
+        options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=CourseManagerDB;Trusted_Connection=True;");
+    });
+
 var app = builder.Build();
 
 // migrate the database.  Best practice = in Main, using service scope
