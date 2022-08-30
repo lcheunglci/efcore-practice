@@ -1,4 +1,5 @@
 using CourseManager.API.DbContexts;
+using CourseManager.API.Entities;
 using CourseManager.API.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -82,11 +83,64 @@ namespace CourseManager.API.Test
                 // Assert
                 Assert.Equal(3, authors.Count());
             }
-
-
-
-
-            // assert
         }
+
+        [Fact]
+        public void GetAuthor_EmptyGuid_ThrowsArgumentException()
+        {
+            // arrange
+            var options = new DbContextOptionsBuilder<CourseContext>()
+                .UseInMemoryDatabase("CourseDatabaseForTesting")
+                .Options;
+
+            using (var context = new CourseContext(options))
+            {
+                var authorRepository = new AuthorRepository(context);
+
+                // assert
+                Assert.Throws<ArgumentException>(
+                    // act
+                    () => authorRepository.GetAuthor(Guid.Empty));
+            }
+        }
+
+        [Fact]
+        public void AddAuthor_AuthorWithoutCountryId_AuthorHasBEAsCountryId()
+        {
+            // arrange
+            var options = new DbContextOptionsBuilder<CourseContext>()
+                .UseInMemoryDatabase("CourseDatabaseForTesting")
+                .Options;
+
+            using (var context = new CourseContext(options))
+            {
+                context.Countries.Add(new Entities.Country()
+                {
+                    Id = "BE",
+                    Description = "Belgium"
+                });
+
+                context.SaveChanges();
+
+                var authorRepository = new AuthorRepository(context);
+                var authorToAdd = new Author()
+                {
+                    FirstName = "Bob",
+                    LastName = "Kevin",
+                    Id = Guid.Parse("196A63E3-6F57-42C9-8B9D-BC487A379D16")
+                };
+
+                // act
+                authorRepository.AddAuthor(authorToAdd);
+                authorRepository.SaveChanges();
+
+                // assert
+                var addedAuthor = authorRepository.GetAuthor(
+                   Guid.Parse("196A63E3-6F57-42C9-8B9D-BC487A379D16"));
+                Assert.Equal("BE", addedAuthor.CountryId);
+
+            }
+        }
+
     }
 }
