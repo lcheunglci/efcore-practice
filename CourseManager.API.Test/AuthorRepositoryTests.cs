@@ -1,6 +1,7 @@
 using CourseManager.API.DbContexts;
 using CourseManager.API.Entities;
 using CourseManager.API.Services;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace CourseManager.API.Test
@@ -92,12 +93,22 @@ namespace CourseManager.API.Test
         public void GetAuthor_EmptyGuid_ThrowsArgumentException()
         {
             // arrange
+            //var options = new DbContextOptionsBuilder<CourseContext>()
+            //    .UseInMemoryDatabase($"CourseDatabaseForTesting{Guid.NewGuid()}")
+            //    .Options;
+            var connectionStringBuilder =
+                new SqliteConnectionStringBuilder { DataSource = ":memory:" };
+            var connection = new SqliteConnection(connectionStringBuilder.ToString());
+
             var options = new DbContextOptionsBuilder<CourseContext>()
-                .UseInMemoryDatabase($"CourseDatabaseForTesting{Guid.NewGuid()}")
+                .UseSqlite(connection)
                 .Options;
 
             using (var context = new CourseContext(options))
             {
+                context.Database.OpenConnection();
+                context.Database.EnsureCreated();
+
                 var authorRepository = new AuthorRepository(context);
 
                 // assert
