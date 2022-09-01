@@ -12,7 +12,7 @@ namespace CourseManager.API.Test
         {
             // arrange
             var options = new DbContextOptionsBuilder<CourseContext>()
-                .UseInMemoryDatabase("CourseDatabaseForTesting")
+                .UseInMemoryDatabase($"CourseDatabaseForTesting{Guid.NewGuid()}")
                 .Options;
 
             using (var context = new CourseContext(options))
@@ -90,7 +90,7 @@ namespace CourseManager.API.Test
         {
             // arrange
             var options = new DbContextOptionsBuilder<CourseContext>()
-                .UseInMemoryDatabase("CourseDatabaseForTesting")
+                .UseInMemoryDatabase($"CourseDatabaseForTesting{Guid.NewGuid()}")
                 .Options;
 
             using (var context = new CourseContext(options))
@@ -109,7 +109,7 @@ namespace CourseManager.API.Test
         {
             // arrange
             var options = new DbContextOptionsBuilder<CourseContext>()
-                .UseInMemoryDatabase("CourseDatabaseForTesting")
+                .UseInMemoryDatabase($"CourseDatabaseForTesting{Guid.NewGuid()}")
                 .Options;
 
             using (var context = new CourseContext(options))
