@@ -74,7 +74,10 @@ namespace CourseManager.API.Test
 
 
                 context.SaveChanges();
+            }
 
+            using (var context = new CourseContext(options))
+            { 
                 var authorRepository = new AuthorRepository(context);
 
                 // Act
@@ -121,6 +124,10 @@ namespace CourseManager.API.Test
                 });
 
                 context.SaveChanges();
+            }
+
+            using (var context = new CourseContext(options))
+            {
 
                 var authorRepository = new AuthorRepository(context);
                 var authorToAdd = new Author()
@@ -133,12 +140,15 @@ namespace CourseManager.API.Test
                 // act
                 authorRepository.AddAuthor(authorToAdd);
                 authorRepository.SaveChanges();
+            }
 
+            using (var context = new CourseContext(options))
+            {
                 // assert
+                var authorRepository = new AuthorRepository(context);
                 var addedAuthor = authorRepository.GetAuthor(
                    Guid.Parse("196A63E3-6F57-42C9-8B9D-BC487A379D16"));
                 Assert.Equal("BE", addedAuthor.CountryId);
-
             }
         }
 
