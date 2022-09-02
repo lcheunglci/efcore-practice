@@ -3,6 +3,7 @@ using CourseManager.API.Entities;
 using CourseManager.API.Services;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CourseManager.API.Test
 {
@@ -12,12 +13,23 @@ namespace CourseManager.API.Test
         public void GetAuthors_PageSizeIsThree_ReturnsThreeAuthors()
         {
             // arrange
+            //var options = new DbContextOptionsBuilder<CourseContext>()
+            //    .UseInMemoryDatabase($"CourseDatabaseForTesting{Guid.NewGuid()}")
+            //    .Options;
+
+            var connectionStringBuilder =
+                new SqliteConnectionStringBuilder { DataSource = ":memory:" };
+            var connection = new SqliteConnection(connectionStringBuilder.ToString());
+
             var options = new DbContextOptionsBuilder<CourseContext>()
-                .UseInMemoryDatabase($"CourseDatabaseForTesting{Guid.NewGuid()}")
+                .UseSqlite(connection)
                 .Options;
 
             using (var context = new CourseContext(options))
             {
+                context.Database.OpenConnection();
+                context.Database.EnsureCreated();
+
                 context.Countries.Add(new Entities.Country()
                 {
                     Id = "BE",
