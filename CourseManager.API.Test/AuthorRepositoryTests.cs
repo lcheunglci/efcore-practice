@@ -3,6 +3,7 @@ using CourseManager.API.Entities;
 using CourseManager.API.Services;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CourseManager.API.Test
@@ -133,7 +134,9 @@ namespace CourseManager.API.Test
         [Fact]
         public void AddAuthor_AuthorWithoutCountryId_AuthorHasBEAsCountryId()
         {
-            // arrange
+            // Arrange
+            var logs = new List<string>();
+
             //var options = new DbContextOptionsBuilder<CourseContext>()
             //    .UseInMemoryDatabase($"CourseDatabaseForTesting{Guid.NewGuid()}")
             //    .Options;
@@ -143,6 +146,14 @@ namespace CourseManager.API.Test
             var connection = new SqliteConnection(connectionStringBuilder.ToString());
 
             var options = new DbContextOptionsBuilder<CourseContext>()
+                .UseLoggerFactory(new LoggerFactory(
+                    new[]
+                    {
+                        new LogToActionLoggerProvider((log) =>
+                        {
+                            logs.Add(log);
+                        })
+                    }))
                 .UseSqlite(connection)
                 .Options;
 
