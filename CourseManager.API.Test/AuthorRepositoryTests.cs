@@ -4,12 +4,20 @@ using CourseManager.API.Services;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Xunit.Abstractions;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CourseManager.API.Test
 {
     public class AuthorRepositoryTests
     {
+        private readonly ITestOutputHelper _output;
+
+        public AuthorRepositoryTests(ITestOutputHelper output)
+        {
+            _output = output;
+        }
+
         [Fact]
         public void GetAuthors_PageSizeIsThree_ReturnsThreeAuthors()
         {
@@ -135,7 +143,7 @@ namespace CourseManager.API.Test
         public void AddAuthor_AuthorWithoutCountryId_AuthorHasBEAsCountryId()
         {
             // Arrange
-            var logs = new List<string>();
+            // var logs = new List<string>();
 
             //var options = new DbContextOptionsBuilder<CourseContext>()
             //    .UseInMemoryDatabase($"CourseDatabaseForTesting{Guid.NewGuid()}")
@@ -151,7 +159,8 @@ namespace CourseManager.API.Test
                     {
                         new LogToActionLoggerProvider((log) =>
                         {
-                            logs.Add(log);
+                            _output.WriteLine(log);
+                            // logs.Add(log);
                         })
                     }))
                 .UseSqlite(connection)
