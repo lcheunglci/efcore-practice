@@ -122,12 +122,23 @@ namespace CourseManager.API.Test
         public void AddAuthor_AuthorWithoutCountryId_AuthorHasBEAsCountryId()
         {
             // arrange
+            //var options = new DbContextOptionsBuilder<CourseContext>()
+            //    .UseInMemoryDatabase($"CourseDatabaseForTesting{Guid.NewGuid()}")
+            //    .Options;
+
+            var connectionStringBuilder =
+                new SqliteConnectionStringBuilder { DataSource = ":memory:" };
+            var connection = new SqliteConnection(connectionStringBuilder.ToString());
+
             var options = new DbContextOptionsBuilder<CourseContext>()
-                .UseInMemoryDatabase($"CourseDatabaseForTesting{Guid.NewGuid()}")
+                .UseSqlite(connection)
                 .Options;
 
             using (var context = new CourseContext(options))
             {
+                context.Database.OpenConnection();
+                context.Database.EnsureCreated();
+
                 context.Countries.Add(new Entities.Country()
                 {
                     Id = "BE",
